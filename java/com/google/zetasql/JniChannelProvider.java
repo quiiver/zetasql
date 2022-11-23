@@ -43,11 +43,6 @@ public class JniChannelProvider implements ClientChannelProvider {
       return path;
     }
 
-    String arch = System.getProperty("os.arch");
-    if (!("x86_64".equals(arch) || "amd64".equals(arch))) {
-      throw new RuntimeException("Unsupported os.arch");
-    }
-
     path = "/zetasql/local_service/";
     String os = System.getProperty("os.name");
     if ("Linux".equals(os)) {

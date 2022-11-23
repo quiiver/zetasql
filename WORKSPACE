@@ -38,6 +38,14 @@ workspace(name = "com_google_zetasql")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
+    name = "build_bazel_rules_apple",
+    sha256 = "0052d452af7742c8f3a4e0929763388a66403de363775db7e90adecb2ba4944b",
+    urls = [
+        "https://github.com/bazelbuild/rules_apple/releases/download/0.31.3/rules_apple.0.31.3.tar.gz",
+    ],
+)
+
+http_archive(
     name = "rules_jvm_external",
     sha256 = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140",
     strip_prefix = "rules_jvm_external-4.1",
