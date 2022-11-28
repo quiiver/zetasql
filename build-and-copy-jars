@@ -11,26 +11,13 @@ npx @bazel/bazelisk build --copt "-O3" --config=clang //java/...
 # then manually copy them into your local maven repo
 version=LOCAL-SNAPSHOT
 names="client jni_channel_darwin jni_channel_linux jni_channel types"
-files="jar pom"
 source=./bazel-bin/java/com/google/zetasql
-repo=$HOME/.m2/repository/com/google/zetasql
 
 for name in $names
 do
-  base="zetasql-${name//_/-}"
-  dir="${repo}/${base}/${version}"
-  echo "creating directory $dir"
-  mkdir -p $dir
-  for ftype in $files; do
-    dest="${dir}/${base}-${version}.${ftype}"
-    if [[ $ftype == "jar" ]]; then
-      suffix="_jar.jar"
-    else
-      suffix="_pom.xml"
-    fi
-    src="$source/${name}${suffix}"
-    echo "${src} -> ${dest}"
-    cp -f $src $dest
-  done
+  mvn install:install-file \
+    -Dversion=${version} \
+    -Dfile=$source/${name}_jar.jar \
+    -DpomFile=$source/${name}_pom.xml
 done
   
